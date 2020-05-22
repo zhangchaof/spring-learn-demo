@@ -1,5 +1,6 @@
-package com.example.springlearndemo;
+package com.example.springlearndemo.config.properties;
 
+import com.example.springlearndemo.BaseTest;
 import com.example.springlearndemo.config.properties.enableconfigurationproperties.HelloProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -11,12 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @date 2020/5/21 17:50
  */
 @Slf4j
-public class PropertiesTest extends BaseTest {
+public class HelloPropertiesTest extends BaseTest {
     @Autowired
     private com.example.springlearndemo.config.properties.configurationproperties.HelloProperties helloProperties;
 
     @Autowired
-    private HelloProperties enableHelloProperties;
+    private com.example.springlearndemo.config.properties.enableconfigurationproperties.HelloProperties enableHelloProperties;
 
     @Test
     public void printMessage() {
