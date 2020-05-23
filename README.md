@@ -16,3 +16,5 @@
  *  使用配置文件方式
  * spring.mvc.static-path-pattern=/static/**
  * spring.resources.static-locations=classpath:/static/
+ 
+ 3.查找数值中重复数据
