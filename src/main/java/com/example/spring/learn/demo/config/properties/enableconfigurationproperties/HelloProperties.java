@@ -1,4 +1,4 @@
-package com.example.springlearndemo.config.properties.enableconfigurationproperties;
+package com.example.spring.learn.demo.config.properties.enableconfigurationproperties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

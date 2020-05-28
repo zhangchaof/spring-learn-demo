@@ -1,4 +1,4 @@
-package com.example.springlearndemo.config.mvc;
+package com.example.spring.learn.demo.config.mvc;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -31,6 +31,6 @@ public class MyMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        System.out.println("1111 = " + 1111);
+
     }
 }
