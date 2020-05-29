@@ -29,9 +29,9 @@ public class SpringCacheController {
 
     @RequestMapping("/getEmployee/{id}")
     public Employee getEmployee(@PathVariable Integer id) {
-        Cache emp = cacheManager.getCache("emp");
-        Employee employee = emp.get(id, Employee.class);
-        log.info("{}", employee);
+       // Cache emp = cacheManager.getCache("emp");
+       // Employee employee = emp.get(id, Employee.class);
+      //  log.info("{}", employee);
         return cacheService.getById(id);
     }
 }
