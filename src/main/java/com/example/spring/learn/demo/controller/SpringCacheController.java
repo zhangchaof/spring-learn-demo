@@ -1,8 +1,8 @@
-package com.example.spring.learn.demo.cache;
+package com.example.spring.learn.demo.controller;
 
+import com.example.spring.learn.demo.cache.SpringCacheService;
 import com.example.spring.learn.demo.mybatis.entity.Employee;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.web.bind.annotation.PathVariable;
