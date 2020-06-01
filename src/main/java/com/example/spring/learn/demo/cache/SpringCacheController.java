@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,11 +28,25 @@ public class SpringCacheController {
         this.cacheManager = cacheManager;
     }
 
+    /**
+     * 测试内部工作
+     * @param id
+     * @return
+     */
+    @RequestMapping("/test/getCache/{id}")
+    public Employee getCache(@PathVariable Integer id) {
+        Cache emp = cacheManager.getCache("emp");
+        Employee employee = emp.get(id, Employee.class);
+        return employee;
+    }
+
     @RequestMapping("/getEmployee/{id}")
     public Employee getEmployee(@PathVariable Integer id) {
-       // Cache emp = cacheManager.getCache("emp");
-       // Employee employee = emp.get(id, Employee.class);
-      //  log.info("{}", employee);
         return cacheService.getById(id);
+    }
+
+    @RequestMapping("/updateEmployee")
+    public Employee updateEmployee(@RequestBody Employee employee) {
+        return cacheService.updateEmployee(employee);
     }
 }

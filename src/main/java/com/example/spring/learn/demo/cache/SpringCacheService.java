@@ -15,4 +15,11 @@ public interface SpringCacheService {
      * @return
      */
     Employee getById(Integer id);
+
+    /**
+     * 更新用户信息
+     * @param employee
+     * @return
+     */
+    Employee updateEmployee(Employee employee);
 }
