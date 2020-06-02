@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/springCache")
-@Slf4j
 public class SpringCacheController {
     private final SpringCacheService cacheService;
 

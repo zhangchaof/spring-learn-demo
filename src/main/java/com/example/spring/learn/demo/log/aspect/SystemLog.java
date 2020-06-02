@@ -1,4 +1,4 @@
-package com.example.spring.learn.demo.config.aspect.log;
+package com.example.spring.learn.demo.log.aspect;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD})
-public @interface SystemControllerLog {
+public @interface SystemLog {
 
     String description() default "";
 

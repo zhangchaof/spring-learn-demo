@@ -1,4 +1,4 @@
-package com.example.spring.learn.demo.config.aspect.log;
+package com.example.spring.learn.demo.log.aspect;
 
 import java.util.UUID;
 

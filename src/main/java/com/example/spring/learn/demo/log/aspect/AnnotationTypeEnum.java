@@ -1,12 +1,11 @@
-package com.example.spring.learn.demo.config.aspect.log;
+package com.example.spring.learn.demo.log.aspect;
 
 /**
  * @author clark
  */
 
 public enum AnnotationTypeEnum {
-    CONTROLLER("controller"),
-    SERVICE("service"),
+    SERVICE("service")
     ;
     /**
      * 描述

@@ -1,19 +1,26 @@
-package com.example.spring.learn.demo.config.aspect.log;
+package com.example.spring.learn.demo.log.aspect;
 
 
 import com.alibaba.fastjson.JSON;
+import com.example.spring.learn.demo.utils.GenericsUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author clark
@@ -23,7 +30,7 @@ import java.lang.reflect.Method;
 @Slf4j
 public class SystemLogAspect {
 
-    @Pointcut("execution(* com.example.spring.learn.demo.controller.*.*(..)) ")
+    @Pointcut("execution(* com.example.spring.learn.demo.controller.*.*(..)) || execution(* com.example.spring.learn.demo.log.*.*.*(..)) ")
     public void pointcut() {
 
     }
@@ -114,47 +121,64 @@ public class SystemLogAspect {
      * 获取注解
      */
     private SystemLogStrategy getFocus(ProceedingJoinPoint pjp) {
+
         Signature signature = pjp.getSignature();
+        //拦截的实体类
+        Object target = pjp.getTarget();
+        //拦截的类名称
         String className = signature.getDeclaringTypeName();
+        //拦截的方法名称
         String methodName = signature.getName();
+        Method method = null;
+        //拦截的放参数个数
         Object[] args = pjp.getArgs();
-        String targetClassName = pjp.getTarget().getClass().getName();
+        //获取参数类型
+        Class[] argsType = ((MethodSignature) signature).getMethod().getParameterTypes();
         try {
-            Class<?> clazz = Class.forName(targetClassName);
-            Method[] methods = clazz.getMethods();
-            for (Method method : methods) {
-                if (methodName.equals(method.getName())) {
-                    if (args.length == method.getParameterCount()) {
-
-                        SystemLogStrategy strategy = new SystemLogStrategy();
-                        strategy.setClassName(className);
-                        strategy.setMethodName(methodName);
-
-                        SystemControllerLog systemControllerLog = method.getAnnotation(SystemControllerLog.class);
-                        if (null != systemControllerLog) {
-                            strategy.setArguments(JSON.toJSONString(args));
-                            strategy.setDescription(systemControllerLog.description());
-                            strategy.setAsync(systemControllerLog.async());
-                            strategy.setLocation(AnnotationTypeEnum.CONTROLLER.getName());
-                            return strategy;
-                        }
-                        SystemServiceLog systemServiceLog = method.getAnnotation(SystemServiceLog.class);
-                        if (null != systemServiceLog) {
-                            strategy.setArguments(JSON.toJSONString(args));
-                            strategy.setDescription(systemServiceLog.description());
-                            strategy.setAsync(systemServiceLog.async());
-                            strategy.setLocation(AnnotationTypeEnum.SERVICE.getName());
-                            return strategy;
-                        }
-
-                        return null;
+            //通过反射获得拦截的method
+            method = target.getClass().getMethod(methodName, argsType);
+            if (method.isBridge()) {
+                for (int i = 0; i < args.length; i++) {
+                    //获得泛型类型
+                    Class genClazz = GenericsUtils.getSuperClassGenricType(target.getClass());
+                    //根据实际参数类型替换parameterType中的类型
+                    if (args[i].getClass().isAssignableFrom(genClazz)) {
+                        argsType[i] = genClazz;
                     }
+                    //获得parameterType参数类型的方法
+                    method = target.getClass().getMethod(methodName, argsType);
                 }
             }
-        } catch (ClassNotFoundException e) {
-            log.error(e.getMessage(), e);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        SystemLogStrategy strategy = new SystemLogStrategy();
+        strategy.setClassName(className);
+        strategy.setMethodName(methodName);
+        SystemLog systemServiceLog = method.getAnnotation(SystemLog.class);
+        if (null != systemServiceLog) {
+            String realArgs = getArgs(args);
+            strategy.setArguments(realArgs);
+            strategy.setDescription(systemServiceLog.description());
+            strategy.setAsync(systemServiceLog.async());
+            strategy.setLocation(AnnotationTypeEnum.SERVICE.getName());
+            return strategy;
         }
         return null;
+
+    }
+
+    private String getArgs(Object[] args) {
+        StringBuilder realArgs = new StringBuilder();
+        for (Object obj : args) {
+            if (obj instanceof HttpServletRequest) {
+                HttpServletRequest request = (HttpServletRequest) obj;
+                realArgs.append(JSON.toJSONString(request.getParameterMap()));
+            } else {
+                realArgs.append(obj);
+            }
+        }
+        return realArgs.toString();
     }
 
 }
