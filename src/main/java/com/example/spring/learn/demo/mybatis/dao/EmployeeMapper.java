@@ -50,4 +50,6 @@ public interface EmployeeMapper {
      * @mbg.generated
      */
     int updateByPrimaryKey(Employee record);
+
+    Employee getEmployeeByLastName(String lastName);
 }

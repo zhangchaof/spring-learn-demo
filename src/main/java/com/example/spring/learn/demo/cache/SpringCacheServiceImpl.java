@@ -2,16 +2,18 @@ package com.example.spring.learn.demo.cache;
 
 import com.example.spring.learn.demo.mybatis.dao.EmployeeMapper;
 import com.example.spring.learn.demo.mybatis.entity.Employee;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.*;
 import org.springframework.stereotype.Service;
 
 /**
  * @author clark
  * @Description:
  * @date 2020/5/28 14:16
+ * 抽取缓存的公共部分
+ * @CacheConfig(cacheNames = "emp")
  */
 @Service
+@CacheConfig(cacheNames = "emp")
 public class SpringCacheServiceImpl implements SpringCacheService {
     private EmployeeMapper employeeMapper;
 
@@ -64,41 +66,63 @@ public class SpringCacheServiceImpl implements SpringCacheService {
      * 2).key使用keyGenerator生成的，默认是SimpleKeyGenerator
      */
     @Override
-    @Cacheable(cacheNames = {"emp", "temp"}, keyGenerator = "springCacheKeyGenerator", cacheManager = "cacheManager", condition = "#id>1")
+    @Cacheable(cacheNames = {"emp"}, keyGenerator = "springCacheKeyGenerator", cacheManager = "cacheManager", condition = "#id>1")
     public Employee getById(Integer id) {
         return employeeMapper.selectByPrimaryKey(id);
     }
 
     /**
-     * @CachePut:既调用方法，又更新缓存
-     * 修改了数据库的数据，又更新缓存
-     * 运行时机：
-     *  1.先调用目标方法
-     *  2.再更新缓存
-     *
-     *  测试步骤：
-     *  1.查询1号员工，查到的结果集放在缓存中：
-     *     key:1, value , value: lastName:张三
-     *  2. 以后查询还是之前的结果
-     *  3.更新1号员工：【lastName：zhangsan；gender:0】
-     *          将方法的返回值也放进缓存了；
-     *           key：传入的employee对象    值：返回的employee对象
-     *  4、查询1号员工
-     *   应该是更新后的员工；
-     *     key="#employee.id" 使用传入参数的员工id；
-     *     key="#result.id";使用返回后的id
-     * @Cacheable的key不能用result.id,原因先查询了缓存，后操作了数据)
-     *   为什么是没更新前的？【1号员工没有在缓存中更新，用的还是id=1的key】
-     *
      * @param employee
      * @return
+     * @CachePut:既调用方法，又更新缓存 修改了数据库的数据，又更新缓存
+     * 运行时机：
+     * 1.先调用目标方法
+     * 2.再更新缓存
+     * <p>
+     * 测试步骤：
+     * 1.查询1号员工，查到的结果集放在缓存中：
+     * key:1, value , value: lastName:张三
+     * 2. 以后查询还是之前的结果
+     * 3.更新1号员工：【lastName：zhangsan；gender:0】
+     * 将方法的返回值也放进缓存了；
+     * key：传入的employee对象    值：返回的employee对象
+     * 4、查询1号员工
+     * 应该是更新后的员工；
+     * key="#employee.id" 使用传入参数的员工id；
+     * key="#result.id";使用返回后的id
+     * @Cacheable的key不能用result.id,原因先查询了缓存，后操作了数据) 为什么是没更新前的？【1号员工没有在缓存中更新，用的还是id=1的key】
      */
     @Override
-    @CachePut(cacheManager = "cacheManager",value = "temp")
+    @CachePut(cacheManager = "cacheManager", value = "emp", key = "#result.id")
     public Employee updateEmployee(Employee employee) {
         employeeMapper.updateByPrimaryKey(employee);
         return employee;
     }
 
+    /**
+     * @CacheEvict 删除缓存
+     * 先执行方法后删除缓存
+     * key:指定要删除的key
+     * allEntries = true:删除缓存中的说有数据，默认false
+     * beforeInvocation = false;缓存的清楚是否在方法之前执行
+     * 默认代表缓存清除操作在方法执行之后执行；如果执行异常缓存就不清除
+     * beforeInvocation = true;
+     * 代表清除缓存操作是在方法运行之前执行，无论是否出现异常，都清除
+     */
+    @CacheEvict(value = "temp", key = "#id")
+    @Override
+    public void deleteEmployee(Integer id) {
+        employeeMapper.deleteByPrimaryKey(id);
+    }
+
+    @Caching(
+            cacheable = {@Cacheable(value = "emp", key = "#lastName")},
+            put = {@CachePut(value = "emp", key = "#result.id"),
+                    @CachePut(value = "emp", key = "#result.email")}
+    )
+    @Override
+    public Employee getEmployeeByLastName(String lastName) {
+        return employeeMapper.getEmployeeByLastName(lastName);
+    }
 }
 
