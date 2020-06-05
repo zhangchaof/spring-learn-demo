@@ -36,5 +36,7 @@ public class ProtectSingletonTest {
         constructor.setAccessible(true);
         ProtectSingleton reflex = constructor.newInstance();
         System.out.println("reflex的hashCode:" + reflex.hashCode());
+        //从运行结果上看重写clone()，添加readResolve()后通过克隆和序列化得到的对象的hashCode与从getInstance()得到的对象得而hashCode值相同，
+        // ；
     }
 }
