@@ -9,12 +9,6 @@ import org.springframework.cache.annotation.EnableCaching;
  * @author clark
  */
 @SpringBootApplication
-/**
- *
- * 开启缓存
- * 默认使用ConcurrentMapCacheManager = ConcurrentMapCache,将数据保存在ConcurrentMap<Object,Cache>
- */
-@EnableCaching
 @MapperScan(basePackages = "com.example.spring.learn.demo.mybatis.dao")
 public class SpringLearnDemoApplication {
 

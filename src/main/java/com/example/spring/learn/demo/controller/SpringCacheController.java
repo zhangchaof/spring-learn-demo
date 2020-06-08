@@ -1,14 +1,19 @@
 package com.example.spring.learn.demo.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.example.spring.learn.demo.cache.SpringCacheService;
 import com.example.spring.learn.demo.mybatis.entity.Employee;
 import lombok.extern.slf4j.Slf4j;
+import org.checkerframework.checker.units.qual.A;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Collection;
 
 /**
  * @author clark
@@ -32,8 +37,12 @@ public class SpringCacheController {
      * @param id
      * @return
      */
-    @RequestMapping("/test/getCache/{id}")
+    @RequestMapping("/getCache/{id}")
     public Employee getCache(@PathVariable Integer id) {
+        Collection<String> cacheNames = cacheManager.getCacheNames();
+       for(String temp : cacheNames) {
+           System.out.println("cacheManager = " + cacheManager.getCache(temp));
+       }
         Cache emp = cacheManager.getCache("emp");
         Employee employee = emp.get(id, Employee.class);
         return employee;

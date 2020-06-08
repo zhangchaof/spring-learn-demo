@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
  * @CacheConfig(cacheNames = "emp")
  */
 @Service
-@CacheConfig(cacheNames = "emp")
 public class SpringCacheServiceImpl implements SpringCacheService {
     private EmployeeMapper employeeMapper;
 
@@ -64,9 +63,12 @@ public class SpringCacheServiceImpl implements SpringCacheService {
      * 核心：
      * 1).使用CacheManager[ConcurrentMapCacheManager]按照名字得到Cache[ConcurrentMapCache]组件
      * 2).key使用keyGenerator生成的，默认是SimpleKeyGenerator
+     *
+     *
+     * ps: ehcache的话注意，cacheNames与ehcache.xml配置文件<cache name="emp"/>完全一致,其他本地缓存如果有的话也要注意
      */
     @Override
-    @Cacheable(cacheNames = {"emp"}, keyGenerator = "springCacheKeyGenerator", cacheManager = "cacheManager", condition = "#id>1")
+    @Cacheable(cacheNames = {"emp"}, cacheManager = "ehCacheManager", condition = "#id>1")
     public Employee getById(Integer id) {
         return employeeMapper.selectByPrimaryKey(id);
     }
@@ -109,7 +111,7 @@ public class SpringCacheServiceImpl implements SpringCacheService {
      * beforeInvocation = true;
      * 代表清除缓存操作是在方法运行之前执行，无论是否出现异常，都清除
      */
-    @CacheEvict(value = "temp", key = "#id")
+    @CacheEvict(value = "emp", key = "#id")
     @Override
     public void deleteEmployee(Integer id) {
         employeeMapper.deleteByPrimaryKey(id);

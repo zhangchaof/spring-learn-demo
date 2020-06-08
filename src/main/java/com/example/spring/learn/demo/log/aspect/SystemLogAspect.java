@@ -21,6 +21,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author clark
@@ -96,6 +97,9 @@ public class SystemLogAspect {
 
     private String getParamsJson(ProceedingJoinPoint joinPoint) {
         Object[] args = joinPoint.getArgs();
+        if(Objects.isNull(args)) {
+            return null;
+        }
         StringBuilder sb = new StringBuilder();
         for (Object arg : args) {
             String param;
