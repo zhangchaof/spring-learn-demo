@@ -10,6 +10,9 @@ import java.util.Set;
  * @date 2020/6/8 13:51
  */
 public class DuplicateNumber {
+    /**
+     * question: 找到数组中重复数据
+     */
 
     /**
      * 一、排序
