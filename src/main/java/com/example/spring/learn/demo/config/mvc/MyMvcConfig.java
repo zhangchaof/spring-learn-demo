@@ -1,9 +1,14 @@
 package com.example.spring.learn.demo.config.mvc;
 
+import com.example.spring.learn.demo.i18n.MyLocaleResolver;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.Locale;
 
 /**
  * @author clark
@@ -29,8 +34,28 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 //@EnableWebMvc
 public class MyMvcConfig implements WebMvcConfigurer {
 
+    // beanname必须为localeResolver,不然国际化无效
+    @Bean
+    public LocaleResolver localeResolver() {
+        return new MyLocaleResolver();
+    }
+
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
+        //浏览器发送 /springboot 请求来到 success
+        registry.addViewController("/springboot").setViewName("success");
+    }
 
+    @Bean
+    public WebMvcConfigurer myWebMvcConfigurer() {
+        WebMvcConfigurer webMvcConfigurer = new WebMvcConfigurer() {
+            @Override
+            public void addViewControllers(ViewControllerRegistry registry) {
+                registry.addViewController("/").setViewName("login");
+                registry.addViewController("/index.html").setViewName("login");
+                registry.addViewController("/main.html").setViewName("dashboard");            }
+        };
+
+        return webMvcConfigurer;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.spring.learn.demo.config.properties.enableconfigurationproperties;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -13,4 +14,11 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties(HelloProperties.class)
 @ConditionalOnProperty(prefix = "hello", value = "enable", matchIfMissing = true)
 public class HelloAutoConfiguration {
+
+    @Autowired
+    HelloProperties helloProperties;
+
+    public void print() {
+        System.out.println("helloProperties = " + helloProperties.getMessage());
+    }
 }

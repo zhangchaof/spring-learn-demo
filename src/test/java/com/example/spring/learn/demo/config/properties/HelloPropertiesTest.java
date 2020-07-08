@@ -1,6 +1,7 @@
 package com.example.spring.learn.demo.config.properties;
 
 import com.example.spring.learn.demo.BaseTest;
+import com.example.spring.learn.demo.config.properties.enableconfigurationproperties.HelloAutoConfiguration;
 import com.example.spring.learn.demo.config.properties.enableconfigurationproperties.HelloProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -19,9 +20,13 @@ public class HelloPropertiesTest extends BaseTest {
     @Autowired
     private HelloProperties enableHelloProperties;
 
+    @Autowired
+    private HelloAutoConfiguration helloAutoConfiguration;
+
     @Test
     public void printMessage() {
         log.info("configurationproperties message:{}",helloProperties.getMessage());
         log.info("enableconfigurationproperties message:{}",enableHelloProperties.getMessage());
+        helloAutoConfiguration.print();
     }
 }
