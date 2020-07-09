@@ -1,6 +1,5 @@
 package com.example.spring.learn.demo.i18n;
 
-import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.LocaleResolver;
 
