@@ -44,3 +44,9 @@ spring:
       config: ehcache.xml
   messages:
     basename: i18n.login
+  #禁用缓存
+  thymeleaf:
+    cache: false
+server:
+    servlet:
+      context-path: /spring
