@@ -52,3 +52,4 @@ CREATE TABLE `employee` (
 -- Records of employee
 -- ----------------------------
 INSERT INTO `employee` VALUES ('1', 'lastName', 'email', '0', '1', '0', '2020-05-28 15:00:55', '2020-05-28 15:00:55');
+INSERT INTO `employee` VALUES ('2', 'lastName2', 'email2', '0', '2', '0', '2021-02-26 15:00:55', '2021-02-26 15:00:55');

@@ -1,17 +1,10 @@
 package com.example.spring.learn.demo.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.example.spring.learn.demo.cache.SpringCacheService;
 import com.example.spring.learn.demo.mybatis.entity.Employee;
-import lombok.extern.slf4j.Slf4j;
-import org.checkerframework.checker.units.qual.A;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
@@ -37,7 +30,7 @@ public class SpringCacheController {
      * @param id
      * @return
      */
-    @RequestMapping("/getCache/{id}")
+    @GetMapping("/getCache/{id}")
     public Employee getCache(@PathVariable Integer id) {
         Collection<String> cacheNames = cacheManager.getCacheNames();
        for(String temp : cacheNames) {
@@ -48,12 +41,12 @@ public class SpringCacheController {
         return employee;
     }
 
-    @RequestMapping("/getEmployee/{id}")
+    @GetMapping("/getEmployee/{id}")
     public Employee getEmployee(@PathVariable Integer id) {
         return cacheService.getById(id);
     }
 
-    @RequestMapping("/updateEmployee")
+    @PostMapping("/updateEmployee")
     public Employee updateEmployee(@RequestBody Employee employee) {
         return cacheService.updateEmployee(employee);
     }

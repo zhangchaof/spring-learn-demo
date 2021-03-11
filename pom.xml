@@ -20,6 +20,10 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+        </dependency>
         <dependency><!--jQuery国际化插件-->
             <groupId>org.webjars.bower</groupId>
             <artifactId>jquery-i18n-properties</artifactId>
@@ -86,13 +90,24 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>6.0.6</version>
+            <version>8.0.18</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>3.4.5</version>
+        </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>26.0-jre</version>
+        </dependency>
+
+        <!-- 集成自定义swagger-start -->
+        <dependency>
+            <groupId>com.learn</groupId>
+            <artifactId>spring-boot-swagger-start</artifactId>
+            <version>1.0.0</version>
         </dependency>
 
         <dependency>
@@ -181,7 +196,7 @@
                     <dependency>
                         <groupId>mysql</groupId>
                         <artifactId>mysql-connector-java</artifactId>
-                        <version>5.1.42</version>
+                        <version>8.0.18</version>
                     </dependency>
                 </dependencies>
             </plugin>

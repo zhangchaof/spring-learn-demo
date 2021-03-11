@@ -37,7 +37,9 @@ import java.util.Locale;
 //@EnableWebMvc
 public class MyMvcConfig implements WebMvcConfigurer {
 
-    // beanname必须为localeResolver,不然国际化无效
+    /**
+     * beanName必须为localeResolver,不然国际化无效
+      */
     @Bean
     public LocaleResolver localeResolver() {
         return new MyLocaleResolver();
