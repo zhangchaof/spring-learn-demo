@@ -14,7 +14,7 @@
 
         <jdbcConnection
                 driverClass="com.mysql.jdbc.Driver"
-                connectionURL="jdbc:mysql://localhost:3306/spring_test?useUnicode=true&amp;characterEncoding=utf-8&amp;noAccessToProcedureBodies=true"
+                connectionURL="jdbc:mysql://localhost:3306/tuhu_report?useUnicode=true&amp;characterEncoding=utf-8&amp;noAccessToProcedureBodies=true&amp;serverTimezone=UTC"
                 userId="root"
                 password="root"/>
         <javaTypeResolver>
@@ -44,13 +44,8 @@
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
 
-        <table schema="spring_test" tableName="department" domainObjectName="Department" enableCountByExample="false"
+        <table schema="tuhu_report" tableName="shop_auto_bonus_penalty" domainObjectName="AutoBonusPenalty" enableCountByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false">
-            <generatedKey column="ID" sqlStatement="MySql" identity="true"/>
-        </table>
-        <table schema="spring_test" tableName="employee" domainObjectName="Employee" enableCountByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false">
-            <generatedKey column="ID" sqlStatement="MySql" identity="true"/>
         </table>
     </context>
 

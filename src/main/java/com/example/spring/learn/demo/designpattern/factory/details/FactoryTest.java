@@ -3,6 +3,11 @@ package com.example.spring.learn.demo.designpattern.factory.details;
 
 import com.example.spring.learn.demo.designpattern.factory.Fruit;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
+
 /**
  * @author clark
  * @Description:
@@ -15,5 +20,6 @@ public class FactoryTest {
         Factory factory = new BananaFactory();
         Fruit apple = factory.getFruit(APPLE);
         System.out.println("apple = " + apple);
+        System.out.println("(1.0/2) = " + (1.0/2));
     }
 }

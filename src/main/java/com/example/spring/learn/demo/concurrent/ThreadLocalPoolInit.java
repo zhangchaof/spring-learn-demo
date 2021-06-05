@@ -13,4 +13,7 @@ public class ThreadLocalPoolInit {
     static {
         pool = new ThreadPoolExecutor(10, 2000000, 1000, TimeUnit.MILLISECONDS, new SynchronousQueue<Runnable>(), Executors.defaultThreadFactory(), new ThreadPoolExecutor.AbortPolicy());
     }
+
+
+    //https://www.cnblogs.com/dennyzhangdd/p/7010972.html
 }

@@ -1,4 +1,4 @@
-package com.example.spring.learn.demo.concurrent.executorService;
+package com.example.spring.learn.demo.concurrent.executor;
 
 import java.util.HashSet;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.concurrent.*;
  * @Author clark
  * @Date 2021/5/25 13:58
  **/
-public class ExecutorServiceTest {
+public class ExecutorServiceMethodsTest {
     /**
      * ExecutorService有如下几个执行方法：
      * - execute(Runnable)

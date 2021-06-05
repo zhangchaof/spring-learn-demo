@@ -1,4 +1,4 @@
-package com.example.spring.learn.demo.concurrent.completionserviceexecutorServicediffer;
+package com.example.spring.learn.demo.concurrent.executor;
 
 import java.util.concurrent.*;
 
