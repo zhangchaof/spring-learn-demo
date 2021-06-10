@@ -1,5 +1,7 @@
 package com.example.spring.learn.demo.designpattern.singleton.hungry;
 
+import java.time.LocalDate;
+
 /**
  * @author clark
  * @Description:
@@ -24,4 +26,8 @@ public class HungryStatic {
         return SINGLETON;
     }
 
+    public static void main(String[] args) {
+        String s = LocalDate.now().toString();
+        System.out.println("s = " + LocalDate.now());
+    }
 }

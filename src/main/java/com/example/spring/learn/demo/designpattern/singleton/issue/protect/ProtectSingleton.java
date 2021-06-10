@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * @author clark
- * @Description:
+ * @Description: 保护单利模式
  * @date 2020/6/5 10:56
  */
 public class ProtectSingleton implements Serializable, Cloneable {

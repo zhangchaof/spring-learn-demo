@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * @author clark
- * @Description:
+ * @Description: 破坏单利模式
  * @date 2020/6/5 10:51
  */
 public class BrokenSingleton implements Serializable, Cloneable {
@@ -13,7 +13,6 @@ public class BrokenSingleton implements Serializable, Cloneable {
 
     private BrokenSingleton() {
     }
-
 
     public static BrokenSingleton getInstance() {
         if (singleton == null) {

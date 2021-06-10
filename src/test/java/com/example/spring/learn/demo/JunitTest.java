@@ -3,6 +3,7 @@ package com.example.spring.learn.demo;
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -14,7 +15,6 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.regex.Pattern;
 
 /**
@@ -25,7 +25,12 @@ import java.util.regex.Pattern;
  **/
 public class JunitTest {
     @Test
+    public void testPad() {
+        System.out.println("true = " + StringUtils.leftPad("1000", 4, "0"));
+    }
+    @Test
     public void testMap() {
+        System.out.println("true = " + "210506010002".substring(6,10));
         List<Map<String,Object>> list = Lists.newArrayList();
         Map<String,Object> retMap = Maps.newHashMap();
         retMap.put("test",11);

@@ -8,7 +8,7 @@ import java.lang.reflect.Constructor;
 
 /**
  * @author clark
- * @Description:
+ * @Description: 破坏单利模式
  * @date 2020/6/5 10:50
  */
 public class BrokenSingletonTest {

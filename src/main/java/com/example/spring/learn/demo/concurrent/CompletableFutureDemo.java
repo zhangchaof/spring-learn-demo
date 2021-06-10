@@ -54,7 +54,7 @@ public class CompletableFutureDemo {
         }
     }
 
-    public static void main(String[] args) {
+    public static void method2() {
         Long start = System.currentTimeMillis();
         //结果集
         List<String> list = new ArrayList<>();
@@ -79,6 +79,11 @@ public class CompletableFutureDemo {
         } finally {
             exs.shutdown();
         }
+    }
+
+    public static void main(String[] args) {
+        method1();
+        method2();
     }
 
     public static Integer calc(Integer i) {
