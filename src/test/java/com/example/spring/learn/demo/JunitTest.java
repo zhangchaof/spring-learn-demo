@@ -89,6 +89,9 @@ public class JunitTest {
         System.out.println("monday = " + firstDayOfWeek);
         LocalDate firstDayOfMonth = today.with(TemporalAdjusters.firstDayOfMonth());
         System.out.println(firstDayOfMonth);
+
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        System.out.println("dateTimeFormatter = " + dateTimeFormatter.format(today));
     }
 
     @Test
