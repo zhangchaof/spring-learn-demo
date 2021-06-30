@@ -21,6 +21,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>ma.glasnost.orika</groupId>
+            <artifactId>orika-core</artifactId>
+            <version>1.4.6</version>
+        </dependency>
+        <dependency>
             <groupId>org.openjdk.jmh</groupId>
             <artifactId>jmh-core</artifactId>
             <version>1.19</version>
